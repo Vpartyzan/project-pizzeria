@@ -91,7 +91,8 @@
       thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
-      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);      
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);      
     }
 
     initAccordin() {
@@ -158,14 +159,45 @@
         for(let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
+          const optionImageSouce = thisProduct.imageWrapper.querySelector('.sauce-' + optionId);
+          const optionImageToppings = thisProduct.imageWrapper.querySelector('.toppings-' + optionId);
+          const optionImageIngredients = thisProduct.imageWrapper.querySelector('.ingredients-' + optionId);
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
           console.log(optionId, option);
 
-          if ((formData[paramId] && formData[paramId].includes(optionId)) && !option.default) {
-            price += option.price; 
-          } else if (!(formData[paramId] && formData[paramId].includes(optionId)) && option.default) {
+          if (optionSelected && !option.default) {
+            price += option.price;             
+          } else if (!optionSelected && option.default) {
             price -= option.price;
           }
-          
+
+          if (optionSelected) {
+            if (optionImageToppings) {
+              optionImageToppings.classList.add(classNames.menuProduct.imageVisible);
+            }
+
+            if (optionImageSouce) {
+              optionImageSouce.classList.add(classNames.menuProduct.imageVisible);
+            }
+
+            if (optionImageIngredients) {
+              optionImageIngredients.classList.add(classNames.menuProduct.imageVisible);
+            }
+            
+          } else if (!optionSelected) {
+            if (optionImageToppings) {
+              optionImageToppings.classList.remove(classNames.menuProduct.imageVisible);
+            }
+
+            if (optionImageSouce) {
+              optionImageSouce.classList.remove(classNames.menuProduct.imageVisible);
+            }
+
+            if (optionImageIngredients) {
+              optionImageIngredients.classList.remove(classNames.menuProduct.imageVisible);
+            }
+          }         
+
         }
       }
 
