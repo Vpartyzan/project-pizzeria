@@ -83,12 +83,13 @@ class Cart {
     thisCart.totalNumber = totalNumber;
     thisCart.subTotalPrice = subTotalPrice;
       
-    thisCart.dom.deliveryFee.innerHTML = deliveryFee;
+    (thisCart.totalNumber == 0) ? thisCart.dom.deliveryFee.innerHTML = 0 : thisCart.dom.deliveryFee.innerHTML = deliveryFee;
+    
     thisCart.dom.subTotalPrice.innerHTML = subTotalPrice;
     thisCart.dom.totalNumber.innerHTML = totalNumber;
       
     for (let totalPrice of thisCart.dom.totalPrice) {
-      totalPrice.innerHTML = thisCart.totalPrice;
+      (thisCart.totalNumber == 0) ? totalPrice.innerHTML = 0 : totalPrice.innerHTML = thisCart.totalPrice;
     }
 
   }
