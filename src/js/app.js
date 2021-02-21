@@ -23,7 +23,7 @@ const app = {
     }
 
     thisApp.activatePage(pageMatchingHash);
-    
+
     for (let link of thisApp.navLinks) {
       link.addEventListener('click', function(event) {
         const clickedElement = this;
@@ -53,15 +53,15 @@ const app = {
       }*/
 
       page.classList.toggle(classNames.pages.active, page.id == pageId);
-    }   
+    }
 
     /* add class "active" to matching links, remove frm non-matching */
     for(let link of thisApp.navLinks) {
       link.classList.toggle(
-        classNames.nav.active, 
+        classNames.nav.active,
         link.getAttribute('href') == '#' + pageId
       );
-    }   
+    }
   },
 
   initMenu: function() {
@@ -85,7 +85,7 @@ const app = {
         return rawResponse.json();
       })
       .then(function(parsedResponse){
-        console.log('parsedResponse', parsedResponse);
+        //console.log('parsedResponse', parsedResponse);
 
         /* save parsedResponse as thisApp.data.products */
         thisApp.data.products = parsedResponse;
@@ -93,9 +93,9 @@ const app = {
         thisApp.initMenu();
       });
 
-    console.log('thisApp.data', JSON.stringify(thisApp.data));
+    //console.log('thisApp.data', JSON.stringify(thisApp.data));
 
-      
+
   },
 
   initCart: function() {
@@ -128,7 +128,7 @@ const app = {
       console.log('templates:', templates);*/
 
     thisApp.initPages();
-    thisApp.initData();      
+    thisApp.initData();
     thisApp.initCart();
     thisApp.initBooking();
   },

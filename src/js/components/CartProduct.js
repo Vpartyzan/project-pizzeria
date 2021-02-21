@@ -4,14 +4,14 @@ import AmountWidget from './AmountWidget.js';
 class CartProduct {
   constructor(menuProduct, element) {
     const thisCartProduct = this;
-      
+
     thisCartProduct.id = menuProduct.id;
     thisCartProduct.amount = menuProduct.amount;
     thisCartProduct.name = menuProduct.name;
     thisCartProduct.params = menuProduct.params;
     thisCartProduct.price = menuProduct.price;
     thisCartProduct.priceSingle = menuProduct.priceSingle;
-      
+
     thisCartProduct.getElements(element);
     thisCartProduct.initAmountWidget();
     thisCartProduct.initActions();
@@ -37,7 +37,7 @@ class CartProduct {
 
     productSummary.id = thisCartProduct.id;
     productSummary.name = thisCartProduct.name;
-    productSummary.amount = thisCartProduct.amountWidget.value;
+    productSummary.amount = thisCartProduct.amountWidget.correctValue;
     productSummary.priceSingle = thisCartProduct.priceSingle;
     productSummary.price = productSummary.priceSingle * productSummary.amount;
     productSummary.params = thisCartProduct.params;
@@ -51,7 +51,7 @@ class CartProduct {
     thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
 
     thisCartProduct.dom.amountWidget.addEventListener('updated', function() {
-      thisCartProduct.amount = thisCartProduct.amountWidget.value;
+      thisCartProduct.amount = thisCartProduct.amountWidget.correctValue;
       thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
       thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
     });
