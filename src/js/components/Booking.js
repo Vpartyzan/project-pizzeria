@@ -8,6 +8,8 @@ class Booking {
   constructor(element) {
     const thisBooking = this;
 
+    thisBooking.selectedTable = '';
+
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
@@ -148,6 +150,7 @@ class Booking {
         table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
+        table.classList.remove(classNames.booking.tableSelect);
       }
     }
   }
@@ -166,6 +169,7 @@ class Booking {
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
   }
 
   initWidgets() {
@@ -179,6 +183,41 @@ class Booking {
     thisBooking.dom.wrapper.addEventListener('updated', function() {
       thisBooking.updateDOM();
     });
+
+    thisBooking.dom.floorPlan.addEventListener('click', function(event) {
+      event.preventDefault();
+      thisBooking.initTables(event);
+    });
+  }
+
+  initTables(event) {
+    const thisBooking = this;
+
+    if (event.target.classList.contains('table')) {
+
+      if (
+        !event.target.classList.contains('booked')
+        &&
+        !event.target.classList.contains(classNames.booking.tableSelect)
+      ) {
+        thisBooking.selectedTable = event.target.dataset.table;
+
+        for (let table of thisBooking.dom.tables) {
+          if (table.classList.contains(classNames.booking.tableSelect)) {
+            table.classList.remove(classNames.booking.tableSelect);
+          }
+        }
+
+        event.target.classList.add(classNames.booking.tableSelect);
+
+      } else if (event.target.classList.contains(classNames.booking.tableSelect)) {
+
+        event.target.classList.remove(classNames.booking.tableSelect);
+
+      } else {
+        alert('Stolik zajęty');
+      }
+    }
   }
 }
 
