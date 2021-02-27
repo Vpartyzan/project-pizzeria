@@ -29,39 +29,36 @@ class Home {
 
     thisHome.dom.order.addEventListener('click', function (event) {
       event.preventDefault();
+      const clickedElement = this;
 
-      window.location.hash = '#/order';
-
-      for(let page of thisHome.pages) {
-
-        page.classList.toggle(classNames.pages.active, page.id == 'order');
-      }
-
-      for(let link of thisHome.navLinks) {
-        link.classList.toggle(
-          classNames.nav.active,
-          link.getAttribute('href') == '#' + 'order'
-        );
-      }
+      thisHome.activatePage(clickedElement);
     });
 
     thisHome.dom.booking.addEventListener('click', function (event) {
       event.preventDefault();
+      const clickedElement = this;
 
-      window.location.hash = '#/booking';
-
-      for(let page of thisHome.pages) {
-
-        page.classList.toggle(classNames.pages.active, page.id == 'booking');
-      }
-
-      for(let link of thisHome.navLinks) {
-        link.classList.toggle(
-          classNames.nav.active,
-          link.getAttribute('href') == '#' + 'booking'
-        );
-      }
+      thisHome.activatePage(clickedElement);
     });
+  }
+
+  activatePage(clickedElement) {
+    const thisHome = this;
+    const id = clickedElement.getAttribute('id');
+
+    window.location.hash = '#/' + id;
+
+    for(let page of thisHome.pages) {
+
+      page.classList.toggle(classNames.pages.active, page.id == id);
+    }
+
+    for(let link of thisHome.navLinks) {
+      link.classList.toggle(
+        classNames.nav.active,
+        link.getAttribute('href') == '#' + id
+      );
+    }
   }
 
 
